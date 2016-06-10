@@ -1,0 +1,26 @@
+# nginx conf - salt managed - do not edit
+{# config_data must be passed as context from SLS! -#}
+{# if using YAML based configuration, conflicting keywords (e.g. include) must be array -#}
+
+{% if config_data is string: %}
+{# assume config is verbatim #}
+{{ config_data }}
+{% else %}
+{% for keyword,kw_data in config_data.iteritems(): -%}
+{% if kw_data is string or kw_data is number: -%}
+{{ keyword }} {{ kw_data }};
+{% elif kw_data is mapping: %}
+{{ keyword }} {
+{%- for k,v in kw_data.iteritems(): %}
+{%- if v is string: %}
+  {{ k }} {{ v }};
+{%- elif v is iterable: %}
+{%- for arg in v: %}
+  {{ k }} {{ arg }};
+{%- endfor %}
+{%- endif %}
+{%- endfor %}
+}
+{%- endif -%}
+{%- endfor -%}
+{% endif -%}

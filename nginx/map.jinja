@@ -1,0 +1,20 @@
+{% set nginx = salt['grains.filter_by']({
+  'default': {
+    'conf_dir': '/etc/nginx/conf.d',
+    'conf_dir_state': 'directory',
+    'conf_dir_dir_mode': '555',
+    'conf_dir_file_mode': '444',
+    'conf_dir_group': 'root',
+    'conf_dir_user': 'root',
+    'config_file': '/etc/nginx/nginx.conf',
+    'config_group': 'root',
+    'config_mode': '444',
+    'config_source': 'salt://nginx/nginx.conf.j2',
+    'config_template': 'jinja',
+    'config_user': 'root',
+    'package_name': 'nginx',
+    'service_enable': 'True',
+    'service_name': 'nginx',
+    'service_state': 'running',
+  }, 
+}, merge=salt['pillar.get']('nginx:lookup')) %}

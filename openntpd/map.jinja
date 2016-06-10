@@ -1,0 +1,13 @@
+{% set openntpd = salt['grains.filter_by']({
+  'OpenBSD': {
+    'config_file': '/etc/ntpd.conf',
+  },
+  'default': {
+    'config_file': '/etc/openntpd/ntpd.conf',
+    'config_source': 'salt://openntpd/ntpd.conf.j2',
+    'package_name': 'openntpd',
+    'service_enable': 'True',
+    'service_name': 'openntpd',
+    'service_state': 'running',
+  }, 
+}, merge=salt['pillar.get']('openntpd:lookup')) %}

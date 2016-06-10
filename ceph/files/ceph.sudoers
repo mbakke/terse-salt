@@ -1,0 +1,2 @@
+{{ pillar['ceph']['calamari']['user'] }} ALL = (root) NOPASSWD:ALL
+Defaults:{{ pillar['ceph']['calamari']['user'] }} !requiretty

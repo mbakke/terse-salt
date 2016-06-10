@@ -1,0 +1,6 @@
+{% for section,items in salt['pillar.get']('ceph:config', {}).iteritems() -%}
+[{{ section }}]
+{% for key,value in items.iteritems() -%}
+{{ key }} = {{ value }}
+{% endfor -%}
+{% endfor -%}

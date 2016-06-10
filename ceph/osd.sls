@@ -1,0 +1,2 @@
+ceph-osd:
+  pkg.installed: []

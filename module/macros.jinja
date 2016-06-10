@@ -1,0 +1,21 @@
+{% macro salt_pillar_state(module, state, data) %}
+{% for name,args in data.iteritems(): %}
+system_{{ module }}_{{ state }}_{{ name }}:
+  {{ module }}.{{ state }}:
+{%- if not 'name' in data %}
+    - name: {{ name }}
+{%- endif %}
+{%- if (args is defined) and args -%}
+{% for key,value in args.iteritems(): %}
+{%- if value is string %}
+    - {{ key }}: {{ value }}
+{%- elif value is iterable %}
+    - {{ key }}:
+{%- for v in value: %} {# only arrays supported #}
+      - {{ v }}
+{%- endfor %}
+{% endif %}
+{%- endfor %}
+{% endif %}
+{%- endfor %}
+{% endmacro %}

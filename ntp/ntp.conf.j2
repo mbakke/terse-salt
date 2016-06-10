@@ -1,0 +1,19 @@
+# ntp.conf(5) - salt managed - do not edit
+{% set ntp_defaults = {
+  'server': ['0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org'],
+} %}
+
+{% for keyword,args in salt['pillar.get']('ntp:config', ntp_defaults).iteritems() -%}
+{% if args is string -%}
+{{ keyword }} {{ args }}
+{% else -%}
+{% for item in args -%}
+{{ keyword }} {{ item }}
+{% endfor -%}
+{% endif -%}
+{% endfor -%}
+
+restrict default kod nomodify
+restrict -6 default kod nomodify
+
+driftfile /var/lib/ntp/drift

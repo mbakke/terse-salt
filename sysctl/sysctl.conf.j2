@@ -1,0 +1,5 @@
+# sysctl.conf(5) - salt managed - do not edit
+
+{% for k,v in salt['pillar.get']('sysctl:config', {}).iteritems(): -%}
+{{ k }}={{ v }}
+{% endfor %}

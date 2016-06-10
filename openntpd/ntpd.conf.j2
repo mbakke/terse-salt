@@ -1,0 +1,11 @@
+# ntpd.conf(5) - salt managed - do not edit
+
+{% for keyword,args in salt['pillar.get']('openntpd:config', {}).iteritems() -%}
+{% if args is string -%}
+{{ keyword }} {{ args }}
+{% else -%}
+{% for item in args -%}
+{{ keyword }} {{ item }}
+{% endfor -%}
+{% endif -%}
+{% endfor -%}

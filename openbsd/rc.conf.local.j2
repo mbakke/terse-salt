@@ -1,0 +1,3 @@
+{% for daemon,flags in salt['pillar.get']('services', {}).iteritems() -%}
+{{ daemon }}_flags={{ flags }}
+{% endfor -%}

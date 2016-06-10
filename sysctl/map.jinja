@@ -1,0 +1,13 @@
+{% set sysctl = salt['grains.filter_by']({
+  'OpenBSD': {
+    'group': 'wheel',
+  },
+  'default': {
+    'source': 'salt://sysctl/sysctl.conf.j2',
+    'template': 'jinja',
+    'conf': '/etc/sysctl.conf',
+    'group': 'root',
+    'user': 'root',
+    'mode': '0640',
+  }, 
+}, merge=salt['pillar.get']('sysctl:lookup')) %}
