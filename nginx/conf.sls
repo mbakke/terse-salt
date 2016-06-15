@@ -18,7 +18,6 @@ nginx_conf_{{ conf_name }}:
     - name: {{ nginx.conf_dir }}/{{ conf_name }}.conf
     - source: salt://nginx/nginx.conf.j2
     - template: jinja 
-    - context:
-      config_data:
-        {{ data | yaml_encode }}
+    - defaults:
+      pillar_path: "nginx:conf:{{ conf_name }}"
 {% endfor %}

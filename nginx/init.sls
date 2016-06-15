@@ -24,6 +24,5 @@ nginx_config:
      - source: {{ nginx.config_source }}
      - template: {{ nginx.config_template }}
      - check_cmd: nginx -t -c
-     - context:
-       config_data:
-         {{ salt['pillar.get']('nginx:config', {}) }}
+     - defaults:
+       pillar_path: 'nginx:config'

@@ -1,11 +1,9 @@
 # nginx conf - salt managed - do not edit
-{# config_data must be passed as context from SLS! -#}
-{# if using YAML based configuration, conflicting keywords (e.g. include) must be array -#}
 
-{% if config_data is string: %}
-{# assume config is verbatim #}
+{%- set config_data = salt['pillar.get'](pillar_path) %}
+{% if config_data is string -%}
 {{ config_data }}
-{% else %}
+{%- else -%}
 {% for keyword,kw_data in config_data.iteritems(): -%}
 {% if kw_data is string or kw_data is number: -%}
 {{ keyword }} {{ kw_data }};
@@ -14,6 +12,18 @@
 {%- for k,v in kw_data.iteritems(): %}
 {%- if v is string: %}
   {{ k }} {{ v }};
+{%- elif v is mapping: %}
+  {{ k }} {
+{%- for x,y in v.iteritems(): %}
+{%- if y is string: %}
+    {{ x }} {{ y }};
+{%- elif y is iterable: %}
+{%- for arg in y: %}
+    {{ x }} {{ arg }};
+{%- endfor %}
+{%- endif %}
+{%- endfor %}
+  }
 {%- elif v is iterable: %}
 {%- for arg in v: %}
   {{ k }} {{ arg }};
@@ -23,4 +33,4 @@
 }
 {%- endif -%}
 {%- endfor -%}
-{% endif -%}
+{%- endif %}
