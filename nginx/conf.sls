@@ -12,7 +12,7 @@ nginx_configuration_directory:
       - group
       - mode
 
-{% for conf_name,data in salt['pillar.get']('nginx:conf', {}).iteritems(): %}
+{% for conf_name in salt['pillar.get']('nginx:conf', {}).iterkeys(): %}
 nginx_conf_{{ conf_name }}:
   file.managed:
     - name: {{ nginx.conf_dir }}/{{ conf_name }}.conf
