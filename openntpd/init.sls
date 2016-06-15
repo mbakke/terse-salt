@@ -22,4 +22,5 @@ openntpd_config:
     - name: {{ openntpd.config_file }}
     - source: {{ openntpd.config_source }}
     - mode: 444
+    - check_cmd: ntpd -n -f
     - template: jinja
