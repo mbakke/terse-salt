@@ -20,4 +20,6 @@ nginx_conf_{{ conf_name }}:
     - template: jinja 
     - defaults:
       pillar_path: "nginx:conf:{{ conf_name }}"
+    - watch_in:
+      - service: nginx_service
 {% endfor %}
