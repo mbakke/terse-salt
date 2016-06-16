@@ -1,0 +1,11 @@
+{% set gogs = salt['grains.filter_by']({
+  'default': {
+    'app_ini_path': '/etc/gogs/conf/app.ini',
+    'manage_package': 'True',
+    'package_name': 'gogs',
+    'service_enable': 'True',
+    'service_name': 'gogs-web-1',
+    'service_state': 'running',
+    'use_upstream_repo': 'True',
+  }, 
+}, merge=salt['pillar.get']('gogs:lookup')) %}
