@@ -1,5 +1,5 @@
 base:
   '*':
-{% for state in salt['pillar.get']('states', []): %}
+{%- for state in salt['pillar.get']('states', []): %}
     - {{ state }}
-{% endfor %}
+{%- endfor -%}
