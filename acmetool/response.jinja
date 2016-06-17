@@ -1,0 +1,10 @@
+{% import_yaml "acmetool/response.defaults.yaml" as response_defaults %}
+
+{%- set config_data = salt['pillar.get']('acmetool:config',
+                                            default=response_defaults,
+                                            merge=True) -%}
+{# config_data | yaml #}
+
+{%- for k,v in config_data.iteritems(): %}
+"{{ k }}": {{ v }}
+{%- endfor %}

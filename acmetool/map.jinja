@@ -1,0 +1,17 @@
+{% set acmetool = salt['grains.filter_by']({
+  'default': {
+    'cronjob_minute': 'random',
+    'cronjob_hour': 'random',
+    'cronjob_daymonth': '"*"',
+    'install_from_package': 'True',
+    'manage_group': 'True',
+    'manage_repo': 'True',
+    'manage_user': 'True',
+    'package_name': 'acmetool',
+    'user': 'acme',
+    'group': 'acme',
+    'directory': '/var/lib/acme',
+    'hooks_directory': '/usr/lib/acme/hooks',
+    'response_file': '/var/lib/acme/conf/responses',
+  }, 
+}, merge=salt['pillar.get']('acmetool:lookup')) %}
