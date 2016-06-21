@@ -1,5 +1,11 @@
----
-module:
+# pillarstate-formula
+
+Meta-formula for generating states directly from pillar.
+
+Usage:
+
+```
+pillarstate:
   file:
     directory:
       /etc/nginx/ssl:
@@ -17,3 +23,4 @@ module:
       mdadm:
     installed:
       salt-minion:
+```
