@@ -1,14 +1,14 @@
-salt_minion_package:
+salt_master_package:
   pkg.installed:
-    - name: salt-minion
+    - name: salt-master
 
-salt_minion_config:
+salt_master_config:
   file.managed:
-    - name: /etc/salt/minion
+    - name: /etc/salt/master
     - mode: 444
     - user: root
     - group: root
     - source: salt://salt/config.jinja
     - template: jinja
     - context:
-        pillar_key: minion
+        pillar_key: master

@@ -1,0 +1,5 @@
+# salt {{ pillar_key }} config - salt managed - do not edit
+
+{%- set config_data = salt['pillar.get']("salt:" + pillar_key, {}) %}
+
+{{ config_data | yaml(False) }}
