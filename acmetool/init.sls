@@ -41,6 +41,8 @@ acmetool_directory:
     - user: {{ acmetool.user }}
     - group: {{ acmetool.group }}
     - dir_mode: 755
+    - require:
+      - user: {{ acmetool.user }}
 
 acmetool_hooks_directory:
   file.directory:

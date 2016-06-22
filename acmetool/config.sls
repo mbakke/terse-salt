@@ -9,6 +9,8 @@ acmetool_hooks_setup:
       - file: acmetool_hooks_directory
     - onchanges: # workaround for salt #32956
       - file: acmetool_response_file
+    - require:
+      - user: {{ acmetool.user }}
 
 # build a response file based on response.yaml
 # override individual options with acmetool:config in pillar
