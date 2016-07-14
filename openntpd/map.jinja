@@ -10,4 +10,4 @@
     'service_name': 'openntpd',
     'service_state': 'running',
   }, 
-}, merge=salt['pillar.get']('openntpd:lookup')) %}
+}, merge=salt['pillar.get']('openntpd:lookup'), base='default') %}
