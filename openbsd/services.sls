@@ -4,5 +4,5 @@ openbsd_services:
     - source: salt://openbsd/rc.conf.local.j2
     - mode: 444
     - user: root
-    - group: root
+    - group: wheel
     - template: jinja
