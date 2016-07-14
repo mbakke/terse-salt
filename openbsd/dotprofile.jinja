@@ -1,0 +1,7 @@
+
+{% if salt['pillar.get']('openbsd:pkg_path') %}
+export PKG_PATH="{{ pillar['openbsd']['pkg_path'] }}/{{ grains['osrelease'] }}/packages/{{ grains['cpuarch'] }}/"
+{% endif -%}
+{% if salt['pillar.get']('openbsd:dotkshrc') -%}
+export ENV="$HOME/.kshrc"
+{% endif -%}

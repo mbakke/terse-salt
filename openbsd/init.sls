@@ -13,17 +13,19 @@ openbsd_gateway:
     - contents: {{ pillar['openbsd']['gateway'] }}
 {% endif %}
 
-/etc/profile:
-  file.append:
+openbsd_root_profile:
+  file.blockreplace:
     - name: /root/.profile
-    - text: |
-        export PKG_PATH="{{ pillar['openbsd']['pkg_mirror_uri'] }}/{{ grains['osrelease'] }}/packages/{{ grains['cpuarch'] }}/"
-        export ENV="$HOME/.kshrc"
+    - marker_start: '### Start Salt managed section -- do not edit ###'
+    - marker_end: '### End Salt managed section ###'
+    - append_if_not_found: True
+    - source: salt://openbsd/dotprofile.jinja
     - template: jinja
 
+{% set kshrc = salt['pillar.get']('openbsd:dotkshrc') %}
+{% if (kshrc is defined) and kshrc is string %}
 /root/.kshrc:
   file.managed:
-    - contents: |
-        . /etc/ksh.kshrc
-        HISTFILE="${HOME}/.ksh_history"
-        HISTSIZE="50000"
+     - contents: |
+{{ kshrc|indent(8,indentfirst=True) }}
+{% endif %}
