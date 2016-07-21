@@ -1,3 +1,3 @@
-{% for daemon,flags in salt['pillar.get']('services', {}).iteritems() -%}
+{% for daemon,flags in salt['pillar.get']('openbsd:services', {}).iteritems() -%}
 {{ daemon }}_flags={{ flags }}
 {% endfor -%}

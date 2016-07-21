@@ -1,4 +1,4 @@
-{% for if,conf in salt['pillar.get']('interfaces', {}).iteritems() -%}
+{% for if,conf in salt['pillar.get']('openbsd:interfaces', {}).iteritems() -%}
 interface_{{ if }}:
   file.managed:
     - name: /etc/hostname.{{ if }}
