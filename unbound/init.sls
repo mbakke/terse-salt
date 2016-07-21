@@ -4,6 +4,8 @@
 unbound_package:
   pkg.{{ unbound.package_state }}:
     - name: {{ unbound.package_name }}
+    - require_in:
+      - file: unbound_config
 {% endif %}
 
 {% if unbound.service_manage %}
@@ -23,7 +25,7 @@ unbound_config:
     - group: {{ unbound.config_group }}
     - source: {{ unbound.config_source }}
     - template: {{ unbound.config_template }}
-    - check_cmd: unbound-checkconf 
-    - context:
-      config_data:
-        {{ salt['pillar.get']('unbound:config', {}) }}
+    # checkconf can't check files outside chroot on most platforms
+    #- check_cmd: unbound-checkconf
+    - defaults:
+        pillar_path: {{ unbound.config_pillar_path }}

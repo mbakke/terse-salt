@@ -1,14 +1,14 @@
 # unbound.conf(5) - salt managed - do not edit
-{# config_data must be passed as context from SLS! -#}
+{% set config_data = salt['pillar.get'](pillar_path) %}
 
 {%- for section,options in config_data.iteritems(): %}
 {{ section }}:
 {%- for opt,val in options.iteritems(): %}
 {%- if val is string %}
-        {{ opt }}: {{ val }}
+       {{ opt }}: {{ val }}
 {%- elif val is iterable %}
 {%- for v in val: %}
-        {{ opt }}: {{ v }}
+       {{ opt }}: {{ v }}
 {%- endfor %}
 {%- endif %}
 {%- endfor %}

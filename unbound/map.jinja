@@ -3,8 +3,8 @@
     'config_file': '/var/unbound/etc/unbound.conf',
     'config_group': 'wheel',
     'config_mode': '440',
-    'package_manage': 'False',
-    'service_manage': 'False',
+    'package_manage': False,
+    'service_manage': False,
   },
   'default': {
     'config_file': '/etc/unbound/unbound.conf',
@@ -13,12 +13,13 @@
     'config_source': 'salt://unbound/unbound.conf.j2',
     'config_template': 'jinja',
     'config_user': 'root',
-    'package_manage': 'True',
+    'config_pillar_path': 'unbound:config',
+    'package_manage': True,
     'package_name': 'unbound',
     'package_state': 'installed',
-    'service_enable': 'True',
+    'service_enable': True,
     'service_name': 'unbound',
-    'service_manage': 'True',
+    'service_manage': True,
     'service_state': 'running',
   }, 
-}, merge=salt['pillar.get']('unbound:lookup')) %}
+}, merge=salt['pillar.get']('unbound:lookup'), base='default') %}
