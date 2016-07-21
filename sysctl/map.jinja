@@ -8,6 +8,6 @@
     'conf': '/etc/sysctl.conf',
     'group': 'root',
     'user': 'root',
-    'mode': '0640',
+    'mode': '0644',
   }, 
-}, merge=salt['pillar.get']('sysctl:lookup')) %}
+}, merge=salt['pillar.get']('sysctl:lookup'), base='default') %}
